@@ -98,9 +98,12 @@ class RequestExperimentManager:
 
         prejs = ""
         postjs = ""
-
+        
+        if "admin" in self.request.path:
+            prejs = "var jQuery = django.jQuery;"
+        
         if settings.DEBUG:
-            prejs = "try { "
+            prejs += " try { "
             postjs = ' } catch(e) { alert("DEBUG notice: Splango encountered a javascript error when attempting to confirm this user as a human. Is jQuery loaded?\\n\\nYou may notice inconsistent experiment enrollments until this is fixed.\\n\\nDetails:\\n"+e.toString()); }'
 
         try:
